@@ -18,7 +18,8 @@ UNION ALL SELECT 'order_items', COUNT(*) FROM order_items
 UNION ALL SELECT 'payments',    COUNT(*) FROM payments
 UNION ALL SELECT 'order_reviews', COUNT(*) FROM order_reviews
 UNION ALL SELECT 'products',    COUNT(*) FROM products
-UNION ALL SELECT 'sellers',     COUNT(*) FROM sellers;
+UNION ALL SELECT 'sellers',     COUNT(*) FROM sellers
+UNION ALL SELECT 'geolocation',     COUNT(*) FROM geolocation;
 /* ANSWER:
    customers 99,441 | sellers 3,095 | orders 99,441 | order_items 112,650 | payments 103,886
    order_reviews 99,224 | products 32,951 | geolocation 1,000,163.
