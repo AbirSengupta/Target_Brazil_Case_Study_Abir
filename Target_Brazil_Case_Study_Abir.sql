@@ -39,7 +39,6 @@ SELECT column_name, data_type
 FROM information_schema.columns
 WHERE table_schema = DATABASE() AND table_name = 'customers'
 ORDER BY ordinal_position;
--- (or simply: DESCRIBE customers;)
 /* ANSWER:
    customer_id, customer_unique_id, customer_city and customer_state are text (VARCHAR/CHAR);
    customer_zip_code_prefix is an integer (INT).
@@ -206,7 +205,6 @@ ORDER BY total_price DESC;
 -- ---------------------------------------------------------------
 
 -- 5.1 Delivery time and estimated-vs-actual difference (per order)
---     positive diff = delivered BEFORE the estimate
 SELECT order_id,
        DATEDIFF(order_delivered_customer_date, order_purchase_timestamp) AS time_to_deliver,
        DATEDIFF(order_estimated_delivery_date, order_delivered_customer_date) AS diff_estimated_delivery
