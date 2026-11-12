@@ -345,10 +345,7 @@ Computer Accessories	~R$911,954
 -- 8. GEOLOCATION: DISTANCE vs FREIGHT & DELIVERY (supports insights)
 -- ---------------------------------------------------------------
 
-
-
-
--- 8.2 Seller-to-customer distance per order item 
+-- 8.1 Seller-to-customer distance per order item 
 DROP TABLE IF EXISTS item_distance;
 CREATE TABLE item_distance AS
 SELECT oi.order_id,
@@ -367,7 +364,7 @@ JOIN geo_zip gs  ON s.seller_zip_code_prefix = gs.zip;
 ---  SQRT(POWER(a, 2) + POWER(b, 2)) is Pythagoras' theorem: it gives the straight-line distance in degrees.
 ---  111 * converts degrees to km, because 1 degree is about 111 km.
 
--- 8.3 Freight & delivery time by distance band
+-- 8.2 Freight & delivery time by distance band
 SELECT CASE WHEN distance_km < 100  THEN '1. <100 km'
             WHEN distance_km < 500  THEN '2. 100-500 km'
             WHEN distance_km < 1000 THEN '3. 500-1000 km'
@@ -385,7 +382,7 @@ ORDER BY distance_band;
    Freight and delivery time rise steadily with distance (correlation about 0.39 for each).
 */
 
--- 8.4 States whose customers are farthest from sellers
+-- 8.3 States whose customers are farthest from sellers
 SELECT customer_state, ROUND(AVG(distance_km), 0) AS avg_distance_km
 FROM item_distance
 GROUP BY customer_state
@@ -396,7 +393,7 @@ LIMIT 5;
    These match the states with the highest freight and longest delivery times.
 */
 
--- 8.5 Where sellers are located
+-- 8.4 Where sellers are located
 SELECT seller_state, COUNT(*) AS sellers,
        ROUND(100 * COUNT(*) / (SELECT COUNT(*) FROM sellers), 1) AS pct
 FROM sellers
